@@ -5,7 +5,7 @@ date: "15 de octubre de 2015"
 output: html_document
 ---
 
-Definición de los cromosomas:
+Chromosome definition:
 
 {LIFSOR}
 
