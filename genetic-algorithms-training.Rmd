@@ -1,0 +1,34 @@
+---
+title: "Genetic algorithms training"
+author: "José Alberto Arcos Sánchez"
+date: "15 de octubre de 2015"
+output: html_document
+---
+
+Definición de los cromosomas:
+
+{LIFSOR}
+
+- L >> number of layers in the neural network, including input and output layers
+- I >> number of neurons in the input layer
+- F >> number of neurons in the first hidden layer
+- S >> number of neurons in the second hidden layer
+- O >> number of neurons in the output layer
+- R >> regularization factor
+
+
+```{r}
+library(genalg)
+
+
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
