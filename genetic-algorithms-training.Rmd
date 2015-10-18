@@ -18,18 +18,23 @@ Chromosome definition:
 
 Maximal and minimal values:
 
-- 1 < L < 4 
+- 1 < L < 5 
 - 0 < I < Inf
 - 0 < F < Inf
 - 0 < S < Inf
 - 0 < O < Inf
 - 0 <= R < Inf
+- 
 
 ```{r}
 library(genalg)
 
 min.values <- c(1, 0, 0, 0, 0, 0)
-max.values <- c(4, 1000, 1000, 1000, 1000, 1000)
+max.values <- c(5, 1000, 1000, 1000, 1000, 1000)
+
+fenotype <- function(chomorosome){
+    
+}
 
 evaluation <- function(chromosome){
     sum(chromosome)
