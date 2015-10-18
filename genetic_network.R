@@ -24,30 +24,34 @@ Config <- function(max.number.of.hidden.layers = 2,
                    max.neurons.hidden.layer.1 = 100,
                    min.neurons.hidden.layer.1 = 0,
                    max.neurons.hidden.layer.2 = 100,
-                   min.neurons.hidden.layer.2 = 0){
+                   min.neurons.hidden.layer.2 = 0,
+                   min.seed = 0,
+                   max.seed = 99999){
     
-    list("min.values" = c(min.number.of.layers,
+    list("min.values" = c(min.number.of.hidden.layers,
                           min.neurons.hidden.layer.1,
-                          min.neurons.hidden.layer.2),
-         "max.values" = c(max.number.of.layers,
+                          min.neurons.hidden.layer.2,
+                          min.seed),
+         "max.values" = c(max.number.of.hidden.layers,
                           max.neurons.hidden.layer.1,
-                          max.neurons.hidden.layer.2))
+                          max.neurons.hidden.layer.2,
+                          max.seed))
     
 }
 
-Evaluation <- function(chromosome, training.data, test.data, formula){
+Evaluation <- function(chromosome, training.set, cv.set, formula){
     
     set.seed(chromosome[4])
     
     brain <- neuralnet(formula = formula,
-                       data = training.data,
+                       data = training.set,
                        hidden = chromosome[2:3][1:chromosome[1]],
                        lifesign = "minimal")
     
     prediction <- 
-        neuralnet::compute(brain, test.data[, 1:(ncol(test.data) - 1)])
+        neuralnet::compute(brain, cv.set[, 1:(ncol(cv.set) - 1)])
     
-    error <- (test.data[, ncol(test.data)] - prediction)^2/length(prediction)
+    error <- (cv.set[, ncol(cv.set)] - prediction)^2/length(prediction)
     
     error
     
