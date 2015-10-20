@@ -1,8 +1,9 @@
-library(dplyr)
 library(magrittr)
 library(lubridate)
 source("genetic_network.R")
-setwd("C:/Users/Jose Alberto/Big Data/scripts/genetic-algorithms-training")
+library(dplyr)
+# setwd("C:/Users/Jose Alberto/Big Data/scripts/genetic-algorithms-training")
+setwd("~/data/genetic-algorithms-training")
 
 
 # Read data
@@ -26,37 +27,37 @@ all.training.data <-
            day.week.5 = DayOfWeek == 5,
            day.week.6 = DayOfWeek == 6,
            day.week.7 = DayOfWeek == 7) %>%
-    select(-DayOfWeek) %>%
+    dplyr::select(-DayOfWeek) %>%
     mutate(Date = ymd(Date),
            week = week(Date),
            month = month(Date),
            year = year(Date)) %>%
-    select(-Date, -Customers) %>%
+    dplyr::select(-Date, -Customers) %>%
     mutate(state.holiday.0 = StateHoliday == "0",
            state.holiday.a = StateHoliday == "a",
            state.holiday.b = StateHoliday == "b",
            state.holiday.c = StateHoliday == "c") %>%
-    select(-StateHoliday) %>%
+    dplyr::select(-StateHoliday) %>%
     left_join(store, by = c("Store")) %>%
     mutate(store.type.a = StoreType == "a",
            store.type.b = StoreType == "b",
            store.type.c = StoreType == "c",
            store.type.d = StoreType == "d") %>%
-    select(-StoreType) %>%
+    dplyr::select(-StoreType) %>%
     mutate(assortment.a = Assortment == "a",
            assortment.b = Assortment == "b",
            assortment.c = Assortment == "c") %>%
-    select(-Assortment) %>%
+    dplyr::select(-Assortment) %>%
     # If there is no competition distance, suppose it is far away
     mutate(CompetitionDistance = ifelse(is.na(CompetitionDistance), 
                                         max(CompetitionDistance, na.rm = T),
                                         CompetitionDistance)) %>%
     mutate(competition.open.months = (2015 - CompetitionOpenSinceYear)*12 +
                7 - CompetitionOpenSinceMonth) %>%
-    select(-CompetitionOpenSinceYear, -CompetitionOpenSinceMonth) %>%
+    dplyr::select(-CompetitionOpenSinceYear, -CompetitionOpenSinceMonth) %>%
     mutate(promo2.weeks = (2015 - Promo2SinceYear)*52 + 
                31 - Promo2SinceWeek ) %>%
-    select(-Promo2SinceWeek, -Promo2SinceYear, -PromoInterval) %>%
+    dplyr::select(-Promo2SinceWeek, -Promo2SinceYear, -PromoInterval) %>%
     # Try to help the nets avoid NA efect
     mutate(unknown.competition.open.months = is.na(competition.open.months),
            unknown.promo2.weeks = is.na(promo2.weeks)) %>%

@@ -49,7 +49,8 @@ Evaluation <- function(chromosome, training.set, cv.set, formula){
     brain <- neuralnet(formula = formula,
                        data = training.set,
                        hidden = chromosome[2:3][1:chromosome[1]],
-                       lifesign = "full")
+                       lifesign = "full",
+                       threshold = 200000)
     
     prediction <- 
         neuralnet::compute(brain, cv.set[, 1:(ncol(cv.set) - 1)])
