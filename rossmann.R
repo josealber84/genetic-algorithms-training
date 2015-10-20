@@ -2,15 +2,16 @@ library(dplyr)
 library(magrittr)
 library(lubridate)
 source("genetic_network.R")
+setwd("C:/Users/Jose Alberto/Big Data/scripts/genetic-algorithms-training")
 
 
 # Read data
 
-train <- read.csv("~/data/genetic-algorithms-training/data/train.csv", 
+train <- read.csv("data/train.csv", 
                   stringsAsFactors=FALSE)
-store <- read.csv("~/data/genetic-algorithms-training/data/store.csv", 
+store <- read.csv("data/store.csv", 
                   stringsAsFactors=FALSE)
-test <- read.csv("~/data/genetic-algorithms-training/data/test.csv", 
+test <- read.csv("data/test.csv", 
                  stringsAsFactors=FALSE)
 
 

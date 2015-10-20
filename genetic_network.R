@@ -16,7 +16,10 @@
 # - 0 <= S < Inf
 # - 0 <= $ < Inf
 
-library(genalg)
+source("genalg/plot.rbga.R")
+source("genalg/rbga.bin.R")
+source("genalg/rbga.R")
+source("genalg/summary.rbga.R")
 library(neuralnet)
 
 Config <- function(max.number.of.hidden.layers = 2,
@@ -46,7 +49,7 @@ Evaluation <- function(chromosome, training.set, cv.set, formula){
     brain <- neuralnet(formula = formula,
                        data = training.set,
                        hidden = chromosome[2:3][1:chromosome[1]],
-                       lifesign = "minimal")
+                       lifesign = "full")
     
     prediction <- 
         neuralnet::compute(brain, cv.set[, 1:(ncol(cv.set) - 1)])
@@ -57,7 +60,8 @@ Evaluation <- function(chromosome, training.set, cv.set, formula){
     
 }
 
-Evolution <- function(config, eval.func = Evaluation, good.chromosomes = NULL){
+Evolution <- function(config, eval.func = Evaluation, 
+                      good.chromosomes = NULL, ...){
     
     rbga(stringMin = config$min.values,
          stringMax = config$max.values,
@@ -68,7 +72,8 @@ Evolution <- function(config, eval.func = Evaluation, good.chromosomes = NULL){
          mutationChance = 0.5,
          showSettings = TRUE,
          verbose = TRUE,
-         evalFunc = evaluation) -> model
+         evalFunc = evaluation,
+         ... = ...) -> model
     
     model
     
